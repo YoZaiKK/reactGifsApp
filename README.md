@@ -1,78 +1,62 @@
-# React + TypeScript + Vite
+﻿# Gifs App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React and TypeScript learning project for a GIF search interface. The UI is in Spanish and currently displays a gallery of six GIFs from local mock data.
 
-Currently, two official plugins are available:
+## Current features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Dark theme with the Montserrat Alternates font.
+- Responsive GIF gallery with two to five columns, depending on screen width.
+- GIF cards showing an image, title, and dimensions from the mock data.
+- Search input, a **Buscar** button, and sample previous searches: Goku, Saitama, Miku, and Pandas.
 
-## React Compiler
+The search controls and previous-search items are visual placeholders: they do not filter results, fetch GIFs, or save history yet. The card text `(size in MB)` is also a placeholder; file sizes are not calculated.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Tech stack
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+- React 19 and TypeScript 6.
+- Vite 8 with the React plugin and React Compiler enabled through the Babel preset.
+- ESLint with TypeScript, React Hooks, and React Refresh rules.
+- Plain CSS for styling and responsive layouts.
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Use Node.js 22.13+ on the 22.x release line, or Node.js 24+, with npm to satisfy the installed Vite and ESLint requirements.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+From the repository directory:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Open the local URL printed by Vite in your terminal.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+No API key or environment variables are required. GIF images load from Giphy URLs, and the font loads from Google Fonts, so those assets require internet access.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Available commands
 
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Vite development server with hot module replacement. |
+| `npm run build` | Run the TypeScript build checks and create the production bundle in `dist/`. |
+| `npm run lint` | Run ESLint across the project. |
+| `npm run preview` | Serve the production build locally after running `npm run build`. |
+
+There is currently no automated test script configured.
+
+## Project structure
+
+```text
+src/
+  main.tsx                 # React entry point; renders the app in StrictMode
+  GifsApp.tsx              # Search interface and GIF gallery
+  index.css                # Global styles and responsive grid
+  mock-data/
+    gifs.mock.ts           # Gif interface and six sample GIF records
+index.html                 # HTML entry point and Google Fonts stylesheet
+vite.config.ts             # Vite plugins and React Compiler configuration
+eslint.config.js           # Lint configuration
+tsconfig*.json             # TypeScript configuration
 ```
+
+To change the sample gallery, edit `src/mock-data/gifs.mock.ts`. Each GIF record contains `id`, `title`, `url`, `width`, and `height`. The gallery renders these records in `src/GifsApp.tsx`.
